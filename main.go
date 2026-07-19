@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"time"
 )
 
 func main() {
@@ -18,7 +19,7 @@ func main() {
 	if err != nil {
 		fmt.Println("Erro:", err)
 	}
-
+	tempo_inicio := time.Now()
 	for _, arquivo := range arquivos {
 		if arquivo.IsDir() {
 			continue
@@ -36,7 +37,7 @@ func main() {
 			destino = "Documentos"
 		case ".AppImage":
 			destino = "Programas"
-		case ".go", ".c", "py":
+		case ".go", ".c", ".py":
 			destino = "Programação"
 		default:
 			destino = "Outros"
@@ -52,5 +53,7 @@ func main() {
 		}
 		fmt.Println("Movido:", arquivo.Name(), "->", destino)
 	}
-	fmt.Println("Concluido :)")
+	tempo_fim := time.Now()
+	tempo_final := tempo_fim.Sub(tempo_inicio)
+	fmt.Println("Concluido em:", tempo_final)
 }
